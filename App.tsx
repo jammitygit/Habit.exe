@@ -9,7 +9,7 @@ import CRTOverlay from './components/CRTOverlay';
 import SettingsModal from './components/SettingsModal';
 import HabitDetailModal from './components/HabitDetailModal';
 import RankProgressModal from './components/RankProgressModal';
-import { Terminal, Check, X, ShieldAlert, Plus, Trash2, Edit2, Save, Clock, Settings, Maximize2 } from 'lucide-react';
+import { Terminal, Check, X, ShieldAlert, Plus, Save, Clock, Settings, Maximize2 } from 'lucide-react';
 
 export default function App() {
   // State
