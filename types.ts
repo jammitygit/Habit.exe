@@ -22,7 +22,7 @@ export interface SystemLogEntry {
   id: string;
   timestamp: string;
   message: string;
-  type: 'INFO' | 'SUCCESS' | 'ERROR' | 'AI' | 'ALERT';
+  type: 'INFO' | 'SUCCESS' | 'ERROR' | 'ALERT';
 }
 
 export interface UserStats {

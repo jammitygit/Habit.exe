@@ -9,15 +9,13 @@ import CRTOverlay from './components/CRTOverlay';
 import SettingsModal from './components/SettingsModal';
 import HabitDetailModal from './components/HabitDetailModal';
 import RankProgressModal from './components/RankProgressModal';
-import { generateTacticalAnalysis } from './services/geminiService';
-import { Terminal, Check, X, ShieldAlert, Cpu, Plus, Trash2, Edit2, Save, Clock, Settings, Maximize2 } from 'lucide-react';
+import { Terminal, Check, X, ShieldAlert, Plus, Trash2, Edit2, Save, Clock, Settings, Maximize2 } from 'lucide-react';
 
 export default function App() {
   // State
   const [xp, setXp] = useState<number>(0);
   const [habits, setHabits] = useState<Habit[]>(INITIAL_HABITS);
   const [systemLogs, setSystemLogs] = useState<SystemLogEntry[]>([]);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState(0); // 0: init, 1: loading, 2: ready
   const [timeRemaining, setTimeRemaining] = useState('');
   
@@ -196,21 +194,6 @@ export default function App() {
         return { ...habit, history: [...habit.history, newLog], streak: habit.streak + 1 };
       }
     }));
-  };
-
-  const handleAIAnalysis = async () => {
-    if (isAnalyzing) return;
-    setIsAnalyzing(true);
-    addLog("establishing uplink... requesting tactical brief.", "INFO");
-    
-    try {
-      const response = await generateTacticalAnalysis(habits, userStats);
-      addLog(response, "AI");
-    } catch (e) {
-      addLog("uplink failed.", "ERROR");
-    } finally {
-      setIsAnalyzing(false);
-    }
   };
 
   // Manage Habits
@@ -414,14 +397,6 @@ export default function App() {
         <div className="space-y-6 mb-8 animate-in fade-in duration-700">
           <div className="flex justify-between items-end border-b border-[var(--border-color)] pb-2 mb-4">
             <h2 className="text-lg font-medium text-gray-400">Active Directives</h2>
-            <button 
-              onClick={handleAIAnalysis}
-              disabled={isAnalyzing}
-              className={`flex items-center gap-2 text-xs border border-[var(--border-color)] px-3 py-1 text-gray-500 hover:border-[var(--text-color)] hover:text-[var(--text-color)] transition-colors ${isAnalyzing ? 'opacity-50 cursor-wait' : ''}`}
-            >
-              <Cpu className="w-3 h-3" />
-              {isAnalyzing ? 'processing...' : 'run tactical analysis'}
-            </button>
           </div>
 
           {habits.map(habit => {

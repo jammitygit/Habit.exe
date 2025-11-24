@@ -25,7 +25,6 @@ const SystemLog: React.FC<SystemLogProps> = ({ logs }) => {
             <span className={`${
               log.type === 'ERROR' ? 'text-red-400' : 
               log.type === 'SUCCESS' ? 'text-green-500' : 
-              log.type === 'AI' ? 'text-blue-400' : 
               log.type === 'ALERT' ? 'text-[var(--text-color)] font-bold animate-pulse' : 
               'text-gray-400'
             }`}>
